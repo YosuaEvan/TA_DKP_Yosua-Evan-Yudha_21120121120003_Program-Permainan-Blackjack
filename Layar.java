@@ -29,7 +29,7 @@ public class Layar {
     private JLabel Dealer;
     private JLabel DealerCard;
     public int DealerHas;
-    public boolean DealerAce = false;
+    public int TotalDealerAce;
 
     Stack PlayerStack = new Stack();
     Stack DealerStack = new Stack();
@@ -49,7 +49,7 @@ public class Layar {
                 PlayerHas = 0;
                 DealerHas = 0;
                 TotalPlayerAce = 0;
-                DealerAce = false;
+                TotalDealerAce = 0;
                 Player.setText("Player");
                 Dealer.setText("Dealer");
                 PlayerCard.setText("");
@@ -215,7 +215,7 @@ public class Layar {
         int plus;
         switch (card) {
             case "A":
-                DealerAce = true;
+                TotalDealerAce += 1;
                 plus = 1;
                 break;
             case "J":
@@ -236,11 +236,13 @@ public class Layar {
             Dealer.setText("Dealer (" + DealerHas + ")");
         }
 
-        if (DealerAce) {
+        if (TotalDealerAce > 0) {
             if (DealerHas + 10 <= 21) {
-                ContinueButton.setVisible(false);
-                ResetButton.setVisible(true);
                 DealerHas += 10;
+                Dealer.setText("Dealer (" + DealerHas + ")");
+            }else if(DealerHas > 21){
+                DealerHas -= 10;
+                TotalDealerAce -= 1;
                 Dealer.setText("Dealer (" + DealerHas + ")");
             }
         }
