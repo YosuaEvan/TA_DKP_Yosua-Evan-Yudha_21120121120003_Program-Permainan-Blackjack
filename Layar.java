@@ -6,6 +6,13 @@ import java.util.Random;
 import java.util.Stack;
 
 public class Layar {
+    // 1) Variabel
+    // 2) Function
+    // 3) Pengkondisian
+    // 4) Stack
+    // 5) Loop
+    // 6) GUI
+
     public String card[] = {"A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"};
     public String CardType[] = {"♠", "♥", "♦", "♣"};
     public String new_card; //Temporary Variable
@@ -110,7 +117,7 @@ public class Layar {
         DealerCard.setText(DealerStack.toString().replace("[","").replace("]","")+ " [?]");
     }
 
-    // Random Card Generator
+    // Random Card to Player
     public void PlayerAddCard() {
         Random random = new Random();
         int index = random.nextInt(13);
@@ -121,6 +128,7 @@ public class Layar {
         PlayerCard.setText(PlayerStack.toString().replace("[","").replace("]","").replace(",",""));
     }
 
+    // Random Card to Dealer
     public void DealerAddCard() {
         Random random = new Random();
         int index = random.nextInt(13);
@@ -131,12 +139,12 @@ public class Layar {
         DealerCard.setText(DealerStack.toString().replace("[","").replace("]","").replace(",",""));
     }
 
-    // Hit
+    // Hit Button
     public void Hit() {
         PlayerAddCard();
     }
 
-    //Stand
+    //Stand Button
     public void Stand() {
         StandButton.setVisible(false);
         HitButton.setVisible(false);
@@ -144,7 +152,7 @@ public class Layar {
         ContinueButton.setVisible(true);
     }
 
-    // Black Jack
+    // Black Jack Condition
     public void Blackjack() {
         WinText.setFont(new Font(WinText.getName(),Font.BOLD,20));
         WinText.setForeground(Color.ORANGE);
@@ -160,7 +168,7 @@ public class Layar {
         DealerAddCard();
     }
 
-    // is Busted
+    // is the card Busted
     public void isBusted() {
         if (PlayerHas > 21) {
             WinText.setText("Busted!");
