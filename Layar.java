@@ -11,7 +11,9 @@ public class Layar {
     // 3) Pengkondisian
     // 4) Stack
     // 5) Loop
-    // 6) GUI
+    // 6) Class
+    // 7) GUI
+    // istem untuk permainan BlackJack Online
 
     public String card[] = {"A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"};
     public String CardType[] = {"♠", "♥", "♦", "♣"};
@@ -28,18 +30,39 @@ public class Layar {
 
     // Variabel untuk Player
     private JLabel Player;
-    private JLabel PlayerCard;
+    public JLabel PlayerCard;
     public int PlayerHas; // total nilai kartu
     public int TotalPlayerAce;
+    public int PlayerAcePlus;
+    private JLabel PlayerCard1;
+    private JLabel PlayerCard2;
+    private JLabel PlayerCard3;
+    private JLabel PlayerCard4;
+    private JLabel PlayerCard5;
+    private JLabel PlayerCard6;
 
     // Variabel untuk dealer
     private JLabel Dealer;
     private JLabel DealerCard;
     public int DealerHas;
     public int TotalDealerAce;
+    public int DealerAcePlus;
+    private JLabel DealerCard1;
+    private JLabel DealerCard2;
+    private JLabel DealerCard3;
+    private JLabel DealerCard4;
+    private JLabel DealerCard5;
+    private JLabel DealerCard6;
+
+    private JPanel PlayerCardImg;
+    private JLabel containerPlayerCard;
+    private JPanel DealerCardImg;
 
     Stack PlayerStack = new Stack();
     Stack DealerStack = new Stack();
+
+    int PlayerCardSlot = 1;
+    int DealerCardSlot = 1;
 
     public Layar() {
         StartButton.addActionListener(new ActionListener() {
@@ -53,17 +76,7 @@ public class Layar {
         ResetButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                PlayerHas = 0;
-                DealerHas = 0;
-                TotalPlayerAce = 0;
-                TotalDealerAce = 0;
-                Player.setText("Player");
-                Dealer.setText("Dealer");
-                PlayerCard.setText("");
-                DealerCard.setText("");
-                WinText.setText("");
-                PlayerStack.clear();
-                DealerStack.clear();
+                ResetAllVariable();
                 ResetButton.setVisible(false);
                 StartButton.setVisible(true);
                 HitButton.setVisible(false);
@@ -89,7 +102,6 @@ public class Layar {
             }
         });
     }
-
     // Menampilkan GUI
     public static void main(String[] args) {
         JFrame frame = new JFrame("Tugas DKP");
@@ -97,46 +109,40 @@ public class Layar {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
-        frame.setSize(400, 300);
+        frame.setSize(1200, 800);
         frame.setResizable(true);
+        frame.setLocationRelativeTo(null);
+
+
     }
 
-    // Start Game
-    public void StartGame() {
-        HitButton.setVisible(true);
-        StandButton.setVisible(true);
-        for (int i = 1; i <= 2; i++) {
-            PlayerAddCard();
-        }
+    // Reset All Variable
+    public void ResetAllVariable(){
+        PlayerHas = 0;
+        DealerHas = 0;
+        PlayerCardSlot = 1;
+        DealerCardSlot = 1;
+        TotalPlayerAce = 0;
+        TotalDealerAce = 0;
+        Player.setText("Player");
+        Dealer.setText("Dealer");
+        PlayerCard.setText("");
+        DealerCard.setText("");
         WinText.setText("");
-        if (PlayerHas == 21) {
-            Blackjack();
-        }
-
-        DealerAddCard();
-        DealerCard.setText(DealerStack.toString().replace("[","").replace("]","")+ " [?]");
-    }
-
-    // Random Card to Player
-    public void PlayerAddCard() {
-        Random random = new Random();
-        int index = random.nextInt(13);
-        String new_card = card[index];
-        index = random.nextInt(4);
-        PlayerStack.push(new_card + CardType[index] + "  ");
-        PlayerCardCount(new_card);
-        PlayerCard.setText(PlayerStack.toString().replace("[","").replace("]","").replace(",",""));
-    }
-
-    // Random Card to Dealer
-    public void DealerAddCard() {
-        Random random = new Random();
-        int index = random.nextInt(13);
-        String new_card = card[index];
-        index = random.nextInt(4);
-        DealerStack.push(new_card + CardType[index] + "  ");
-        DealerCardCount(new_card);
-        DealerCard.setText(DealerStack.toString().replace("[","").replace("]","").replace(",",""));
+        PlayerStack.clear();
+        DealerStack.clear();
+        PlayerCard1.setIcon(null);
+        PlayerCard2.setIcon(null);
+        PlayerCard3.setIcon(null);
+        PlayerCard4.setIcon(null);
+        PlayerCard5.setIcon(null);
+        PlayerCard6.setIcon(null);
+        DealerCard1.setIcon(null);
+        DealerCard2.setIcon(null);
+        DealerCard6.setIcon(null);
+        DealerCard3.setIcon(null);
+        DealerCard4.setIcon(null);
+        DealerCard5.setIcon(null);
     }
 
     // Hit Button
@@ -152,20 +158,107 @@ public class Layar {
         ContinueButton.setVisible(true);
     }
 
-    // Black Jack Condition
-    public void Blackjack() {
-        WinText.setFont(new Font(WinText.getName(),Font.BOLD,20));
-        WinText.setForeground(Color.ORANGE);
-        WinText.setText("BLACKJACK! You Win!");
-        WinText.setFont(new Font(WinText.getName(),Font.BOLD,16));
-        StandButton.setVisible(false);
-        HitButton.setVisible(false);
-        ResetButton.setVisible(true);
-    }
-
-    // Continue
+    // Continue Button
     public void Continue() {
         DealerAddCard();
+    }
+
+    // Start Game
+    public void StartGame() {
+        HitButton.setVisible(true);
+        StandButton.setVisible(true);
+        for (int i = 1; i <= 2; i++) {
+            PlayerAddCard();
+        }
+        WinText.setText("");
+        if (PlayerHas == 21) {
+            Blackjack();
+        }
+
+        DealerAddCard();
+        DealerCard2.setIcon(new ImageIcon(new ImageIcon("C:\\Users\\FX505GM\\IdeaProjects\\BlackJackSimulator - Copy - Copy\\hidden_card.jpg").getImage().getScaledInstance(150,180,Image.SCALE_DEFAULT)));
+        DealerCard.setText(DealerStack.toString().replace("[","").replace("]","")+ " [?]");
+    }
+
+    // Random Card to Player
+    public void PlayerAddCard() {
+        Random random = new Random();
+        int index = random.nextInt(13);
+        String new_card = card[index];
+        int index2 = random.nextInt(4);
+        PlayerStack.push(new_card + CardType[index2] + "  ");
+        PrintImage(index, index2,"Player");
+        PlayerCardCount(new_card);
+        PlayerCard.setText(PlayerStack.toString().replace("[","").replace("]","").replace(",",""));
+    }
+
+    // Random Card to Dealer
+    public void DealerAddCard() {
+        Random random = new Random();
+        int index = random.nextInt(13);
+        String new_card = card[index];
+        int index2 = random.nextInt(4);
+        DealerStack.push(new_card + CardType[index2] + "  ");
+        PrintImage(index, index2,"Dealer");
+        DealerCardCount(new_card);
+        DealerCard.setText(DealerStack.toString().replace("[","").replace("]","").replace(",",""));
+    }
+
+    // Print card img
+    public void PrintImage(int index, int type, String turn){
+        CardImage Images = new CardImage();
+        Images.GetImage(index,type);  // call function to get card imgicon
+        ImageIcon image = Images.image; // save card imgicon to new variable
+        if(turn.equals("Player")){
+            switch (PlayerCardSlot){
+                case 1:
+                    PlayerCard1.setIcon(image);
+                    break;
+                case 2:
+                    PlayerCard2.setIcon(image);
+                    break;
+                case 3:
+                    PlayerCard3.setIcon(image);
+                    break;
+                case 4:
+                    PlayerCard4.setIcon(image);
+                    break;
+                case 5:
+                    PlayerCard5.setIcon(image);
+                    break;
+                case 6:
+                    PlayerCard6.setIcon(image);
+                    break;
+                default:
+                    break;
+            }
+            PlayerCardSlot += 1;
+        }
+        else if(turn.equals("Dealer")){
+            switch (DealerCardSlot){
+                case 1:
+                    DealerCard1.setIcon(image);
+                    break;
+                case 2:
+                    DealerCard2.setIcon(image);
+                    break;
+                case 3:
+                    DealerCard3.setIcon(image);
+                    break;
+                case 4:
+                    DealerCard4.setIcon(image);
+                    break;
+                case 5:
+                    DealerCard5.setIcon(image);
+                    break;
+                case 6:
+                    DealerCard6.setIcon(image);
+                    break;
+                default:
+                    break;
+            }
+            DealerCardSlot += 1;
+        }
     }
 
     // is the card Busted
@@ -181,6 +274,17 @@ public class Layar {
             HitButton.setVisible(false);
             ResetButton.setVisible(true);
         }
+    }
+
+    // Black Jack Condition
+    public void Blackjack() {
+        WinText.setFont(new Font(WinText.getName(),Font.BOLD,20));
+        WinText.setForeground(Color.ORANGE);
+        WinText.setText("BLACKJACK! You Win!");
+        WinText.setFont(new Font(WinText.getName(),Font.BOLD,16));
+        StandButton.setVisible(false);
+        HitButton.setVisible(false);
+        ResetButton.setVisible(true);
     }
 
     // Count PlayerCard
@@ -206,9 +310,12 @@ public class Layar {
         if (TotalPlayerAce > 0) {
             if (PlayerHas + 10 <= 21) {
                 PlayerHas += 10;
-            }else if(PlayerHas > 21) {
+                PlayerAcePlus += 1;
+            }
+            else if(PlayerHas > 21 && PlayerAcePlus > 0) {
                 PlayerHas -= 10;
                 TotalPlayerAce -= 1;
+                PlayerAcePlus -= 1;
             }
         }
 
@@ -247,10 +354,13 @@ public class Layar {
         if (TotalDealerAce > 0) {
             if (DealerHas + 10 <= 21) {
                 DealerHas += 10;
+                DealerAcePlus += 1;
                 Dealer.setText("Dealer (" + DealerHas + ")");
-            }else if(DealerHas > 21){
+            }
+            else if(DealerHas > 21 && DealerAcePlus > 0){
                 DealerHas -= 10;
                 TotalDealerAce -= 1;
+                DealerAcePlus -= 1;
                 Dealer.setText("Dealer (" + DealerHas + ")");
             }
         }
@@ -281,4 +391,5 @@ public class Layar {
             WinText.setForeground(Color.RED);
         }
     }
+
 }
