@@ -124,6 +124,8 @@ public class Layar {
         DealerCardSlot = 1;
         TotalPlayerAce = 0;
         TotalDealerAce = 0;
+        PlayerAcePlus = 0;
+        DealerAcePlus = 0;
         Player.setText("Player");
         Dealer.setText("Dealer");
         PlayerCard.setText("");
@@ -278,10 +280,8 @@ public class Layar {
 
     // Black Jack Condition
     public void Blackjack() {
-        WinText.setFont(new Font(WinText.getName(),Font.BOLD,20));
         WinText.setForeground(Color.ORANGE);
         WinText.setText("BLACKJACK! You Win!");
-        WinText.setFont(new Font(WinText.getName(),Font.BOLD,16));
         StandButton.setVisible(false);
         HitButton.setVisible(false);
         ResetButton.setVisible(true);
